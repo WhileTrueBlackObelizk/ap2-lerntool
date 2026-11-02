@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>AP2-Lerntool FIAE</title>
+<meta name="description" content="Lern- und Prüfungstool für die IHK-Abschlussprüfung Teil 2 Fachinformatiker/in Anwendungsentwicklung">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f5fd0'/%3E%3Ctext x='16' y='21' font-family='Arial' font-size='12' font-weight='700' fill='white' text-anchor='middle'%3EAP2%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/formats.css">
+<link rel="stylesheet" href="css/fmt_diagram.css">
+<link rel="stylesheet" href="css/steuerung.css">
+<link rel="stylesheet" href="css/deep.css">
+<link rel="stylesheet" href="css/dranbleiben.css">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="theme-color" content="#2f5fd0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AP2-Lerntool">
+<script>
+  // Datencontainer VOR den Datendateien anlegen – fehlende Dateien dürfen nichts kaputt machen
+  window.AP2 = window.AP2 || { topics: [], questions: [], exams: [], generators: [] };
+  window.AP2_LOAD_ERRORS = [];
+</script>
+</head>
+<body>
+<a class="skip" href="#view">Zum Inhalt springen</a>
+<header class="topbar">
+  <button id="navtoggle" class="icon-btn navtoggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="sidenav">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+  </button>
+  <a class="brand" href="#/dashboard"><span class="logo">AP2</span><span class="bt">Lerntool <small>FIAE</small></span></a>
+  <form id="searchform" class="topsearch" role="search">
+    <input id="globalsearch" class="input" type="search" placeholder="Fragen & Lernzettel durchsuchen …  /" aria-label="Fragen und Lernzettel durchsuchen">
+  </form>
+  <a id="rankchip" class="rankchip" href="#/profile" aria-label="Lernprofil"></a>
+  <button id="savebtn" class="savebtn ok" type="button" aria-label="Spielstand speichern">Speichern</button>
+  <a id="aibadge" class="aibadge off" href="#/settings">KI aus</a>
+  <button id="themebtn" class="icon-btn" type="button" aria-label="Darstellung wechseln">☾</button>
+</header>
+<div id="exambanner" class="exambanner hidden" role="status"></div>
+<div class="layout">
+  <nav id="sidenav" class="nav" aria-label="Hauptnavigation">
+    <a href="#/dashboard" data-nav="dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
+    <a href="#/topics" data-nav="topics"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></svg>Themen</a>
+    <a href="#/train" data-nav="train"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>Training</a>
+    <a href="#/profile" data-nav="profile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l7 4v6c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Lernprofil</a>
+    <a href="#/plan" data-nav="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15h3"/></svg>Countdown-Plan</a>
+    <a href="#/tree" data-nav="tree"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22V11M12 15l-4-3M12 13l4-3"/><circle cx="12" cy="7" r="5"/></svg>Wissensbaum</a>
+    <a href="#/calib" data-nav="calib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18a9 9 0 0 1 18 0"/><path d="M12 18l4-6"/></svg>Kalibrierung</a>
+    <a href="#/path" data-nav="path"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4v-5h4v-5h4V5h4"/><circle cx="6" cy="20" r="0.5"/></svg>Lernpfad GA2</a>
+    <a href="#/fg" data-nav="fg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>Fachgespräch</a>
+    <a href="#/mistakes" data-nav="mistakes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9.5 17H2.5z"/><path d="M12 10v4M12 17.5v.01"/></svg>Fehlerheft</a>
+    <a href="#/feynman" data-nav="feynman"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>Erklär es</a>
+    <a href="#/exam" data-nav="exam"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg>Prüfung</a>
+    <a href="#/generators" data-nav="generators"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg>Rechentrainer</a>
+    <a href="#/ai" data-nav="ai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg>KI-Studio</a>
+    <a href="#/stats" data-nav="stats"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Statistik</a>
+    <a href="#/search" data-nav="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Suche</a>
+    <a href="#/settings" data-nav="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>Einstellungen</a>
+    <div class="navfoot muted small">Tasten: <kbd>1</kbd>–<kbd>9</kbd> wählen · <kbd>Enter</kbd> prüfen/weiter · <kbd>Esc</kbd></div>
+  </nav>
+  <div id="navscrim" class="navscrim"></div>
+  <main id="view" class="view" tabindex="-1"><p class="muted">Lade …</p></main>
+</div>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<noscript><div class="notice error">Dieses Lerntool benötigt JavaScript.</div></noscript>
+
+<!-- Inhaltsdaten (fehlende Dateien werden übersprungen) -->
+<script src="data/ga1_pm.js" onerror="AP2_LOAD_ERRORS.push('ga1_pm.js')"></script>
+<script src="data/ga1_tech.js" onerror="AP2_LOAD_ERRORS.push('ga1_tech.js')"></script>
+<script src="data/ga2_algo.js" onerror="AP2_LOAD_ERRORS.push('ga2_algo.js')"></script>
+<script src="data/ga2_sql.js" onerror="AP2_LOAD_ERRORS.push('ga2_sql.js')"></script>
+<script src="data/wiso.js" onerror="AP2_LOAD_ERRORS.push('wiso.js')"></script>
+<script src="data/fg.js" onerror="AP2_LOAD_ERRORS.push('fg.js')"></script>
+<script src="data/generators.js" onerror="AP2_LOAD_ERRORS.push('generators.js')"></script>
+<script src="data/exams.js" onerror="AP2_LOAD_ERRORS.push('exams.js')"></script>
+<script src="data/lvl_sql.js" onerror="AP2_LOAD_ERRORS.push('lvl_sql.js')"></script>
+<script src="data/lvl_algo.js" onerror="AP2_LOAD_ERRORS.push('lvl_algo.js')"></script>
+<script src="data/fmt_trace.js" onerror="AP2_LOAD_ERRORS.push('fmt_trace.js')"></script>
+<script src="data/fmt_diagram.js" onerror="AP2_LOAD_ERRORS.push('fmt_diagram.js')"></script>
+<script src="data/fmt_bugfix.js" onerror="AP2_LOAD_ERRORS.push('fmt_bugfix.js')"></script>
+<script src="data/tree.js" onerror="AP2_LOAD_ERRORS.push('tree.js')"></script>
+<script src="data/why.js" onerror="AP2_LOAD_ERRORS.push('why.js')"></script>
+<script src="data/pretest.js" onerror="AP2_LOAD_ERRORS.push('pretest.js')"></script>
+<script src="data/feynman.js" onerror="AP2_LOAD_ERRORS.push('feynman.js')"></script>
+<script src="data/fg_drill.js" onerror="AP2_LOAD_ERRORS.push('fg_drill.js')"></script>
+
+<!-- App (klassische Skripte, keine ES-Module – funktioniert unter file://) -->
+<script src="js/util.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/formats.js"></script>
+<script src="js/steuerung.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/sqlrunner.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/ui/components.js"></script>
+<script src="js/ui/sqlref.js"></script>
+<script src="js/ui/beiblatt.js"></script>
+<script src="js/ui/views_learn.js"></script>
+<script src="js/ui/views_exam.js"></script>
+<script src="js/ui/views_misc.js"></script>
+<script src="js/ui/views_path.js"></script>
+<script src="js/ui/views_profile.js"></script>
+<script src="js/ui/diagram_editor.js"></script>
+<script src="js/ui/formats_ui.js"></script>
+<script src="js/ui/kalibrierung.js"></script>
+<script src="js/ui/views_steuerung.js"></script>
+<script src="js/errtypes.js"></script>
+<script src="js/ui/views_deep.js"></script>
+<script src="js/memorycard.js"></script>
+<!-- Paket D: Dranbleiben & Fachgespräch -->
+<script src="js/ui/lan.js"></script>
+<script src="js/ui/goal.js"></script>
+<script src="js/ui/timebudget.js"></script>
+<script src="js/ui/views_fg.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

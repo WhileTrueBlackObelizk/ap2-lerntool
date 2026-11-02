@@ -1,0 +1,19 @@
+{
+  "name": "AP2-Lerntool FIAE",
+  "short_name": "AP2",
+  "description": "Lern- und Prüfungstool für die IHK-Abschlussprüfung Teil 2 Fachinformatiker/in Anwendungsentwicklung",
+  "lang": "de",
+  "start_url": "./index.html#/dashboard",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#2f5fd0",
+  "background_color": "#f5f6f8",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-180.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

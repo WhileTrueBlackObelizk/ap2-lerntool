@@ -1,0 +1,109 @@
+/* AP2-Lerntool – SVG-Diagrammeditor (UML/ERM). Farben ausschließlich über die Variablen aus style.css (Hell/Dunkel). */
+
+.dg { max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+
+/* Werkzeugleiste */
+.dg-toolbar { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+.dg-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.dg-toolbar .dg-etype { width: auto; max-width: 100%; min-height: 30px; padding: 4px 8px; font-size: 0.85rem; }
+.dg-status { min-height: 1.3em; }
+
+/* Zeichenfläche */
+.dg-canvas {
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  overflow: auto; -webkit-overflow-scrolling: touch; max-width: 100%;
+}
+.dg-svg { font-family: var(--font); color: var(--text); }
+.dg-canvas .dg-svg { display: block; width: 100%; min-width: 560px; height: min(70vh, 560px); user-select: none; -webkit-user-select: none; }
+.dg-canvas .dg-svg:focus { outline: none; }
+.dg-canvas:focus-within { border-color: var(--accent); }
+.dg-ro .dg-canvas .dg-svg { min-width: 0; height: auto; margin: 0 auto; }
+.dg-ro .dg-canvas { border: 0; background: transparent; }
+.dg-svg.dg-connecting, .dg-svg.dg-dragging { touch-action: none; }
+.dg-svg.dg-connecting .dg-node { cursor: crosshair; }
+
+/* statisches SVG (Musterlösung/Ansicht) */
+.dg-static { display: block; width: 100%; height: auto; margin: 6px 0; }
+
+/* Knoten */
+.dg-node { color: var(--text); }
+.dg-canvas .dg-node { cursor: grab; touch-action: none; }
+.dg-dragging .dg-node { cursor: grabbing; }
+.dg-shape { fill: var(--surface); stroke: currentColor; stroke-width: 1.4; }
+.dg-shape.dg-stroke { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.dg-shape.dg-solid { fill: currentColor; }
+.dg-sep { stroke: currentColor; stroke-width: 1.1; }
+.dg-hitbox { fill: transparent; stroke: none; }
+
+/* Text */
+.dg-t { fill: var(--text); font-size: 13px; stroke: none; }
+.dg-name { font-weight: 700; font-size: 14px; }
+.dg-italic { font-style: italic; }
+.dg-stereo { font-size: 11px; fill: var(--muted); }
+.dg-mem { font-size: 12.5px; }
+.dg-pk { text-decoration: underline; }
+.dg-side, .dg-lbl, .dg-mult { font-size: 12.5px; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.dg-rel { font-size: 12.5px; font-weight: 600; }
+
+/* Kanten */
+.dg-edge { color: var(--text); }
+.dg-line { stroke: currentColor; stroke-width: 1.4; fill: none; }
+.dg-deco { stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
+.dg-deco.dg-solid { fill: currentColor; }
+.dg-deco.dg-hollow { fill: var(--surface); }
+.dg-deco.dg-open { fill: none; }
+.dg-hit { stroke: transparent; stroke-width: 16; fill: none; cursor: pointer; }
+
+/* Auswahl / Verbinden */
+.dg-node.dg-selected, .dg-edge.dg-selected { color: var(--accent); }
+.dg-node.dg-selected .dg-shape:not(.dg-solid), .dg-edge.dg-selected .dg-line { stroke-width: 2.6; }
+.dg-node.dg-source { color: var(--mid); }
+.dg-node.dg-source .dg-shape { stroke-width: 2.6; stroke-dasharray: 5 3; }
+
+/* Bewertung */
+.dg-mk-ok { color: var(--good); }
+.dg-mk-bad { color: var(--bad); }
+.dg-mk-part { color: var(--mid); }
+.dg-node.dg-mk-ok .dg-shape, .dg-node.dg-mk-bad .dg-shape, .dg-node.dg-mk-part .dg-shape { stroke-width: 2.4; }
+.dg-edge.dg-mk-ok .dg-line, .dg-edge.dg-mk-bad .dg-line, .dg-edge.dg-mk-part .dg-line { stroke-width: 2.2; }
+.dg-mk-bad .dg-lbl, .dg-mk-bad .dg-mult, .dg-mk-bad .dg-rel { fill: var(--bad); }
+
+/* Eigenschaften */
+.dg-panel { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-2); padding: 10px 12px; }
+.dg-panel label { margin-bottom: 8px; }
+.dg-panel .dg-empty { margin: 2px 0; }
+.dg-ph { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.dg-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+.dg-row > label { flex: 1 1 150px; min-width: 0; }
+.dg-row > .dg-rev { margin-bottom: 10px; }
+.dg-ta { font-family: var(--mono); font-size: 0.88rem; }
+.dg-hint { margin: 0 0 6px; }
+.dg-hint code { white-space: nowrap; }
+
+/* Listen */
+.dg-lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.dg-lists h4 { font-size: 0.88rem; margin: 0 0 4px; color: var(--muted); }
+.dg-lists p { margin: 0; }
+.dg-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; max-height: 220px; overflow: auto; }
+.dg-item {
+  width: 100%; text-align: left; font: inherit; font-size: 0.86rem; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 7px; padding: 5px 9px; cursor: pointer; overflow-wrap: anywhere; min-height: 32px;
+}
+.dg-item:hover { background: var(--surface-3); }
+.dg-item.on { border-color: var(--accent); background: var(--accent-weak); }
+
+/* Beziehung hinzufügen */
+.dg-addedge { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: flex-end; border-top: 1px dashed var(--border); padding-top: 8px; }
+.dg-addedge .dg-ftitle { width: 100%; font-size: 0.88rem; font-weight: 600; color: var(--muted); }
+.dg-addedge label { flex: 1 1 130px; min-width: 0; margin-bottom: 0; font-size: 0.82rem; }
+.dg-addedge .input { min-height: 34px; padding: 5px 8px; font-size: 0.88rem; }
+.dg-addedge .btn { min-height: 34px; }
+
+@media (max-width: 600px) {
+  .dg:not(.dg-ro) .dg-canvas .dg-svg { min-width: 600px; height: min(62vh, 440px); }
+  .dg-toolbar { gap: 6px; }
+  .dg-group { gap: 5px; }
+}
+
+/* „Ansicht einpassen“: Zeichenfläche passt sich der Breite an (kein Querscrollen auf dem Handy) */
+.dg.dg-fit .dg-canvas .dg-svg { min-width: 0; height: auto; max-height: min(70vh, 560px); }

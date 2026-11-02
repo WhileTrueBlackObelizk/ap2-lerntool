@@ -1,0 +1,67 @@
+/* AP2-Lerntool – Paket „tieferes Verständnis“ (Warum-Schritt, Vorab-Test, Feynman, Fehlertypen) */
+
+/* Warum-Schritt */
+.whystep { margin: 10px 0 12px; padding: 12px 14px; border: 1px solid var(--accent); border-left-width: 4px; border-radius: 9px; background: var(--accent-weak); }
+.whystep.collapsed { padding: 6px 12px; border-color: var(--border); border-left-width: 1px; background: transparent; }
+.whystep.done { border-color: var(--border); border-left-color: var(--good); background: var(--surface-2); }
+.whystep .why-head { margin-bottom: 8px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.whystep textarea { width: 100%; background: var(--surface); }
+.whystep .btnrow { margin-top: 8px; }
+.why-own p, .why-model p { margin: 2px 0 10px; }
+.why-own p { font-style: italic; }
+.why-checks, .fey-checks { flex-direction: column; align-items: stretch; margin: 6px 0; }
+.why-checks .check, .fey-checks .check { background: var(--surface); }
+.badge.mid { background: var(--mid-weak); color: var(--mid); border-color: transparent; }
+
+/* Vorab-Test */
+.pretest .ptq { border: 1px solid var(--border); border-radius: 9px; padding: 10px 12px 12px; margin: 0 0 12px; }
+.pretest .ptq legend { font-weight: 600; padding: 0 6px; }
+.pretest .opts { display: flex; flex-direction: column; gap: 6px; }
+.ptn { display: inline-flex; align-items: center; justify-content: center; min-width: 1.4em; height: 1.4em; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 0.75rem; font-weight: 700; padding: 0 3px; }
+sup.ptn { font-size: 0.65rem; margin-right: 3px; vertical-align: super; }
+.pt-result { border-left: 4px solid var(--accent); }
+.pt-list { padding-left: 0; list-style: none; margin: 0; }
+.pt-list li { padding: 6px 0; border-top: 1px solid var(--border); }
+.pt-list li:first-child { border-top: 0; }
+.pt-list .sym { font-weight: 700; }
+.pt-list li.ok .sym { color: var(--good); }
+.pt-list li.miss .sym { color: var(--bad); }
+mark.pt-mark { padding: 1px 3px; border-radius: 4px; scroll-margin-top: 90px; }
+mark.pt-mark.ok { background: var(--good-weak); box-shadow: inset 0 -2px 0 var(--good); }
+mark.pt-mark.miss { background: var(--mid-weak); box-shadow: inset 0 -2px 0 var(--mid); }
+mark.pt-mark.flash { outline: 3px solid var(--accent); }
+
+/* Feynman */
+.feygrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.feytile { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface-2); color: var(--text); }
+.feytile:hover { border-color: var(--accent); text-decoration: none; }
+.feytile .tt { font-weight: 600; min-width: 0; }
+.feyscore { flex-shrink: 0; font-size: 0.78rem; font-weight: 700; padding: 2px 7px; border-radius: 99px; font-variant-numeric: tabular-nums; }
+.feyscore.good { background: var(--good-weak); color: var(--good); }
+.feyscore.mid { background: var(--mid-weak); color: var(--mid); }
+.feyscore.low { background: var(--bad-weak); color: var(--bad); }
+.feyscore.none { color: var(--muted); border: 1px solid var(--border); }
+.feyterm { font-size: 1.9rem; }
+.feywrite textarea { width: 100%; }
+.feycheck .check.plain { border-style: dashed; }
+.fey-gaps { margin: 12px 0; padding: 10px 12px; border-radius: 9px; background: var(--mid-weak); }
+.fey-gaps ul { margin: 4px 0 0; padding-left: 20px; }
+.fey-score { margin: 12px 0 4px; }
+.fey-points { font-size: 1.05rem; margin-bottom: 4px; }
+.fey-points .kv { font-size: 1.6rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chip.small { font-size: 0.72rem; padding: 0 6px; }
+
+/* Häufigste Fehler */
+.errtypes { border-left: 4px solid var(--bad); }
+.errtypes h2 { margin: 0; }
+.errlist { margin: 6px 0 0; padding-left: 0; list-style: none; }
+.errlist > li { padding: 10px 0; border-top: 1px solid var(--border); }
+.errhead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.errhead .btn { margin-left: auto; }
+.errn { font-weight: 700; color: var(--bad); font-variant-numeric: tabular-nums; min-width: 2.4em; }
+.errtypes .tip { margin: 4px 0 2px 2.9em; }
+.errex { margin: 2px 0 0 2.9em; padding-left: 16px; }
+@media (max-width: 640px) {
+  .errtypes .tip, .errex { margin-left: 0; }
+  .errhead .btn { margin-left: 0; }
+}

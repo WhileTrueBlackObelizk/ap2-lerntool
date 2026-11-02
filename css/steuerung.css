@@ -1,0 +1,80 @@
+/* AP2-Lerntool – Lernsteuerung: Sicherheitsabfrage, Kalibrierung, Wissensbaum, Phasenplan */
+
+.bad-t { color: var(--bad); }
+
+/* ---------------------------------------------------- Sicherheitsabfrage */
+.confrow { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 4px; margin: -4px; border-radius: 10px; outline: none; }
+.confrow.ask { background: var(--accent-weak); box-shadow: 0 0 0 2px var(--accent); }
+.conflabel { font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-right: 2px; }
+.btn.conf-u { border-color: var(--mid); }
+.btn.conf-g { border-color: var(--border); border-style: dashed; }
+.confhint kbd { font-size: 0.8em; }
+.confnote { border-left: 4px solid var(--accent); background: var(--accent-weak); border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: 0.9rem; }
+.confnote.bad { border-left-color: var(--bad); background: var(--bad-weak); }
+.confnote.mid { border-left-color: var(--mid); background: var(--mid-weak); }
+.confnote.good { border-left-color: var(--good); background: var(--good-weak); }
+.notice.bad { border-left-color: var(--bad); background: var(--bad-weak); }
+.notice.mid { border-left-color: var(--mid); background: var(--mid-weak); }
+.notice.good { border-left-color: var(--good); background: var(--good-weak); }
+
+/* ---------------------------------------------------------- Wissensbaum */
+.treebar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.legend { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--muted); }
+.legend .lg { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-left: 6px; }
+.lg.m-good, .tnode.m-good { --tc: var(--good); --tw: var(--good-weak); }
+.lg.m-mid, .tnode.m-mid { --tc: var(--mid); --tw: var(--mid-weak); }
+.lg.m-low, .tnode.m-low { --tc: var(--bad); --tw: var(--bad-weak); }
+.lg.m-none, .tnode.m-none { --tc: var(--border); --tw: var(--surface-2); }
+.legend .lg { background: var(--tw); border: 2px solid var(--tc); }
+
+.tree { display: flex; flex-direction: column; gap: 16px; }
+.tstem { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+.tbranches { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; margin-top: 10px; padding-left: 14px; border-left: 3px solid var(--border); }
+.tbranch { display: flex; flex-direction: column; gap: 6px; }
+.tleaves { display: flex; flex-direction: column; gap: 5px; padding-left: 12px; border-left: 2px dotted var(--border); }
+
+.tnode { font: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 8px 10px; border-radius: 9px; cursor: pointer;
+  color: var(--text); background: var(--tw); border: 1px solid var(--tc); border-left-width: 5px; }
+.tnode:hover:not(:disabled) { filter: brightness(0.97); box-shadow: var(--shadow); }
+.tnode:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tnode:disabled { opacity: 0.5; cursor: default; }
+.tnode .tk { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.tnode .tt { font-weight: 600; line-height: 1.25; }
+.tnode .tm { font-size: 0.8rem; }
+.tnode .tbar { display: block; height: 4px; border-radius: 3px; background: var(--surface); overflow: hidden; margin-top: 3px; }
+.tnode .tbar i { display: block; height: 100%; background: var(--tc); }
+.tnode.k-stamm { padding: 12px 14px; }
+.tnode.k-stamm .tt { font-size: 1.08rem; }
+.tnode.k-blatt { padding: 6px 9px; }
+.tnode.k-blatt .tt { font-size: 0.88rem; font-weight: 550; }
+.tnode.st-locked { background: var(--surface-2); border-style: dashed; opacity: 0.8; }
+.tnode.rec { box-shadow: 0 0 0 2px var(--accent); }
+.treerec { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.recitem { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+
+/* ----------------------------------------------------------- Phasenplan */
+.plantoday { border-left: 4px solid var(--accent); }
+.plantoday h2 { margin: 2px 0 4px; }
+.plantoday p { margin: 0 0 6px; }
+.daysleft { display: flex; flex-direction: column; align-items: center; min-width: 110px; }
+.phasebar { position: relative; display: flex; gap: 2px; height: 26px; margin: 10px 0; border-radius: 7px; overflow: hidden; }
+.phasebar .ph { display: flex; align-items: center; padding: 0 8px; min-width: 0; font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.phasebar .ph span { overflow: hidden; text-overflow: ellipsis; }
+.ph1 { --pc: var(--accent); --pw: var(--accent-weak); }
+.ph2 { --pc: var(--bad); --pw: var(--bad-weak); }
+.ph3 { --pc: var(--good); --pw: var(--good-weak); }
+.phasebar .ph { background: var(--pw); color: var(--pc); }
+.phasebar .phnow { position: absolute; top: 0; bottom: 0; width: 3px; margin-left: -1px; background: var(--text); border-radius: 2px; }
+.phinfo { border-left: 4px solid var(--pc); padding: 4px 10px; }
+.grid.phases { margin-top: 6px; }
+ol.plan.full li { grid-template-columns: 82px 150px 1fr auto; border-left: 3px solid var(--pc); padding-left: 8px; }
+ol.plan.full li.past { opacity: 0.55; }
+ol.plan.full li.now { background: var(--accent-weak); font-weight: 600; }
+.calib-s .kl { color: var(--good); } .calib-u .kl { color: var(--mid); } .calib-g .kl { color: var(--muted); }
+
+@media (max-width: 640px) {
+  .tbranches { grid-template-columns: 1fr; padding-left: 8px; }
+  ol.plan.full li { grid-template-columns: 70px 1fr; }
+  ol.plan.full li .pbody { grid-column: 1 / -1; }
+  .daysleft { align-items: flex-start; }
+}
